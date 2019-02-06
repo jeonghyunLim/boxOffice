@@ -10,15 +10,23 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+   
+    @IBOutlet var writerLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var contentsLabel: UILabel!
+    
+    func configure(_ data: Comment) {
+        writerLabel.text = data.writer
+        contentsLabel.text = data.contents
+
+        if let timestamp = data.timestamp {
+            let date = Date(timeIntervalSince1970: timestamp)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.locale = NSLocale.current
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateToString = dateFormatter.string(from: date)
+            dateLabel.text = dateToString
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
